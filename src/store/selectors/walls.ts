@@ -23,7 +23,8 @@ export const getSplitTargetWall = createSelector(
   (state: RootState) => state.walls,
   (walls) => Object
     .values(walls)
-    .findLast(({ isSplitTarget }) => isSplitTarget),
+    // .findLast(({ isSplitTarget }) => isSplitTarget),
+    .find(({ isSplitTarget }) => isSplitTarget),
 );
 
 export const getSplittingWalls = createSelector(

@@ -12,5 +12,6 @@ export const getPlacingVertex = createSelector(
   (vertices) => Object
     .values(vertices)
     // The placing vertex should always be the last element, so this should be O(1)
-    .findLast(({ isPlacing }) => isPlacing),
+    // .findLast(({ isPlacing }) => isPlacing),
+    .find(({ isPlacing }) => isPlacing),
 );
