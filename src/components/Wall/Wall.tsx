@@ -86,9 +86,9 @@ const Wall: FC<Props> = ({
       >
         {`ㅤ`}{length.toFixed(1)}px{`ㅤ`}
       </text>
-      <text transform={transform({ x: textX, y: textY })} className="font-extrabold pointer-events-none fill-red-500 text-xs select-none">{id}</text>
+      {/* <text transform={transform({ x: textX, y: textY })} className="font-extrabold pointer-events-none fill-red-500 text-xs select-none">{id}</text> */}
     </g>
-  )
+  );
 };
 
 export default Wall;
