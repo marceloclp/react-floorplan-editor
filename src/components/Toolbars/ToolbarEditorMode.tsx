@@ -16,8 +16,8 @@ const ToolbarEditorMode: FC = () => {
         <LockClosedIcon className="w-4 h-4 stroke-inherit" />
       </Button>
       <Divider />
-      <Button active={mode === EDITOR_MODES.PANNING}>
-        <HandRaisedIcon className="w-4 h-4 stroke-inherit" />
+      <Button shortcut="␣" active={mode === EDITOR_MODES.PANNING}>
+        <HandRaisedIcon className="w-4 h-4 stroke-inherit translate-x-0.5" />
       </Button>
       {/* <ToolbarButton active={mode === EDITOR_MODES.DRAGGING_VERTEX}>
         <ViewfinderCircleIcon className="w-4 h-4 stroke-gray-500" />
