@@ -17,6 +17,8 @@ import { selectAngles } from "../../store/selectors/angles"
 const Editor: FC = () => {
   const gridId = useId();
 
+  const zoom = useSelector((state: RootState) => state.zooming.zoom);
+
   const vxs = useSelector((state: RootState) => Object.values(state.vertices));
   const wls = useSelector((state: RootState) => Object.values(state.walls).map(({ v1, v2, ...wall }) => ({
     x1: state.vertices[v1].x,
@@ -51,7 +53,7 @@ const Editor: FC = () => {
           <GridDefinition id={gridId} gridX={20} gridY={20} />
         </defs>
         <g className="translate-x-1/2 translate-y-1/2">
-          <g transform={transform({ x: panX, y: panY })}>
+          <g transform={transform({ x: panX, y: panY, scale: zoom })}>
             <g {...vs.handlers} tabIndex={0}>
               <Grid gridId={gridId} />
               {angles.map((angle, i) => (
