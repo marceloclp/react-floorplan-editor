@@ -8,6 +8,7 @@ export const updateVertex =
       const k = key as keyof VertexEntity;
       if (k.startsWith('is') && partial[k] === false)
         delete state.vertices[vertexId][k];
+      // @ts-expect-error
       else state.vertices[vertexId][k] = partial[k];
     });
     return state.vertices[vertexId];

@@ -8,6 +8,7 @@ export const updateWall =
       const k = key as keyof WallEntity;
       if (k.startsWith('is') && partial[k] === false)
         delete state.walls[wallId][k];
+      // @ts-expect-error
       else state.walls[wallId][k] = partial[k];
     });
     return state.walls[wallId];
