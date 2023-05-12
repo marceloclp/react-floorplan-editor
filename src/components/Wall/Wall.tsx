@@ -3,6 +3,7 @@ import cx from "../../utils/cx"
 import transform from "../../utils/transform"
 
 type Props = {
+  id: string;
   x1: number;
   x2: number;
   y1: number;
@@ -15,6 +16,7 @@ type Props = {
 };
 
 const Wall: FC<Props> = ({
+  id,
   x1,
   x2,
   y1,
@@ -47,7 +49,7 @@ const Wall: FC<Props> = ({
         isPlacing && 'opacity-50',
       )}
       data-entity-type="wall"
-      data-entity-index={i}
+      data-entity-id={id}
     >
       {/* Hover element. */}
       <line
@@ -86,7 +88,7 @@ const Wall: FC<Props> = ({
       >
         {`ㅤ`}{length.toFixed(1)}px{`ㅤ`}
       </text>
-      <text transform={transform({ x: textX, y: textY })} className="font-extrabold pointer-events-none fill-red-500">{i}</text>
+      <text transform={transform({ x: textX, y: textY })} className="font-extrabold pointer-events-none fill-red-500 text-xs select-none">{id}</text>
     </g>
   )
 };

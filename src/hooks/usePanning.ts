@@ -20,7 +20,7 @@ const usePanning = (vs: MouseSensor<SVGGeometryElement>, { maxPanX = Infinity, m
       element.getAttribute('data-entity-type') === 'grid';
 
     return vs.on({
-      onMouseDrag: (event) => {
+      onMouseDragMove: (event) => {
         if (!vs.kb.isShortcut(['Space']) || !isGridElement(vs.target()))
           return;
 

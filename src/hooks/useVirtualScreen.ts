@@ -14,7 +14,7 @@ interface VScreenEvents<T extends Element> {
   onMouseUp: MouseEventHandler<T>;
   onMouseClick: MouseEventHandler<T>;
   onMouseDragStart: MouseEventHandler<T>;
-  onMouseDrag: MouseEventHandler<T>;
+  onMouseDragMove: MouseEventHandler<T>;
   onMouseDragStop: MouseEventHandler<T>;
   onKeyUp: KeyboardEventHandler<T>;
   onKeyDown: KeyboardEventHandler<T>;
@@ -284,7 +284,7 @@ export class MouseSensor<T extends Element> {
 
       if (this.clickLeft) {
         this.handleDrag(event);
-        if (this._hasDragged) this.run('onMouseDrag', event);
+        if (this._hasDragged) this.run('onMouseDragMove', event);
       }
     };
 

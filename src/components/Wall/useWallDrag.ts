@@ -61,7 +61,7 @@ const useWallDrag = (
 
         updateWallIndex(parseIndex(g));
       },
-      onMouseDrag: () => {
+      onMouseDragMove: () => {
         // Skip if no wall is selected
         if (refs.current.wallIndex === undefined) return;
 

@@ -3,6 +3,7 @@ import transform from '../../utils/transform'
 import cx from '../../utils/cx'
 
 type Props = {
+  id: string;
   x: number;
   y: number;
   index: number;
@@ -14,6 +15,7 @@ type Props = {
 }
 
 const Vertex: FC<Props> = ({
+  id,
   x,
   y,
   index,
@@ -25,7 +27,7 @@ const Vertex: FC<Props> = ({
   <g
     transform={transform({ x, y })}
     data-entity-type="vertex"
-    data-entity-index={index}
+    data-entity-id={id}
     className={cx(
       'group',
       isPlacing && 'opacity-50 pointer-events-none',
@@ -67,7 +69,7 @@ const Vertex: FC<Props> = ({
       r={8}
       strokeWidth={4}
     />
-    <text className="translate-y-4 translate-x-4 font-extrabold pointer-events-none">{index}</text>
+    <text className="translate-y-4 translate-x-4 font-extrabold pointer-events-none text-xs select-none">{id}</text>
   </g>
 );
 

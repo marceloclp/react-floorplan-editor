@@ -1,0 +1,9 @@
+{
+  "extends": [
+    "react-app"
+  ],
+  "rules": {
+    "quotes": ["warn", "single"],
+    "semi": ["warn", "always"]
+  }
+}

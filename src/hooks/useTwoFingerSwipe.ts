@@ -29,6 +29,7 @@ const useTwoFingerSwipe = (
       // to always call prevent default to stop the browser from navigating
       // to a different tab.
       event.preventDefault();
+      event.stopPropagation();
       event.stopImmediatePropagation();
 
       cb.cancel();

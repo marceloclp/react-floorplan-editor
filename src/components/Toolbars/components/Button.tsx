@@ -1,15 +1,28 @@
-import { FC, ReactNode } from "react"
-import cx from "../../utils/cx"
+import { FC, PropsWithChildren } from 'react';
+import cx from '../../../utils/cx';
 
-type Props = {
+type Props = PropsWithChildren<{
+  className?: string;
+  /** */
   shortcut?: string;
+  /** */
   active?: boolean;
-  children?: ReactNode;
+  /** */
+  disabled?: boolean;
+  /** */
   onClick?: () => void;
-}
+}>
 
-const ToolbarButton: FC<Props> = ({ shortcut, active, onClick, children }) => (
+const Button: FC<Props> = ({
+  children,
+  className,
+  shortcut,
+  active = false,
+  disabled = false,
+  onClick,
+}) => (
   <button
+    disabled={disabled}
     className={cx(
       'relative',
       'flex items-center justify-center',
@@ -30,6 +43,9 @@ const ToolbarButton: FC<Props> = ({ shortcut, active, onClick, children }) => (
         active && 'stroke-indigo-500 hover:stroke-indigo-500',
         active && 'text-indigo-400',
       ),
+      'disabled:pointer-events-none',
+      'disabled:opacity-50',
+      className
     )}
     onClick={onClick}
   >
@@ -49,4 +65,4 @@ const ToolbarButton: FC<Props> = ({ shortcut, active, onClick, children }) => (
   </button>
 );
 
-export default ToolbarButton;
+export default Button;

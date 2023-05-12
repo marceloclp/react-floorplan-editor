@@ -29,7 +29,7 @@ const useVertexDrag = (
         // We only set the `vertexIndex` state if the user actually drags.
         index = parseIndex(g);
       },
-      onMouseDrag: () => {
+      onMouseDragMove: () => {
         // If no vertex is selected, skip this event.
         if (index === undefined) return undefined;
 
