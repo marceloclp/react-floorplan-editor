@@ -68,6 +68,7 @@ const Vertex: FC<Props> = ({
       strokeWidth={4}
     />
     {/* <text className="translate-y-4 translate-x-4 font-extrabold pointer-events-none text-xs select-none">{id}</text> */}
+    {/* <text className="translate-y-4 translate-x-4 font-extrabold pointer-events-none text-xs select-none">{`(${x}, ${y})`}</text> */}
   </g>
 );
 

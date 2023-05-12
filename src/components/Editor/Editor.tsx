@@ -1,4 +1,4 @@
-import { FC, useId } from "react"
+import { FC, useId, useMemo } from "react"
 import cx from "../../utils/cx"
 import Vertex from "../Vertex/Vertex"
 import Grid from "../Grid/Grid"
@@ -11,6 +11,8 @@ import RootState from "../../store/types/RootState"
 import transform from "../../utils/transform"
 import ToolbarEditorMode from "../Toolbars/ToolbarEditorMode"
 import ToolbarHistory from "../Toolbars/ToolbarHistory"
+import Angle from "../Angle/Angle"
+import { selectAngles } from "../../store/selectors/angles"
 
 const Editor: FC = () => {
   const gridId = useId();
@@ -24,13 +26,13 @@ const Editor: FC = () => {
     ...wall,
   })));
 
-  const mode = useSelector((state: RootState) => state.mode);
+  const angles = useSelector(selectAngles);
 
   const {
     panX,
     panY,
     isDragPanning,
-    isTwoFingersPanning,
+    // isTwoFingersPanning,
   } = useSelector((state: RootState) => state.panning);
 
   const vs = useVirtualScreen<SVGGeometryElement>();
@@ -52,6 +54,9 @@ const Editor: FC = () => {
           <g transform={transform({ x: panX, y: panY })}>
             <g {...vs.handlers} tabIndex={0}>
               <Grid gridId={gridId} />
+              {angles.map((angle, i) => (
+                <Angle {...angle} key={i} />
+              ))}
               {wls.map((wall) => (
                 <Wall {...wall} key={wall.id} />
               ))}

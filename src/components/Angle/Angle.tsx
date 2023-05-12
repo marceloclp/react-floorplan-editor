@@ -13,10 +13,10 @@ type Props = {
   x2: number;
   y2: number;
 
-  r: number;
+  r?: number;
 };
 
-const Angle: FC<Props> = ({ x0, y0, x1, y1, x2, y2, r }) => {
+const Angle: FC<Props> = ({ x0, y0, x1, y1, x2, y2, r = 20 }) => {
   const A: Point = { x: x0, y: y0 };
   const B: Point = { x: x1, y: y1 };
   const C: Point = { x: x2, y: y2 };

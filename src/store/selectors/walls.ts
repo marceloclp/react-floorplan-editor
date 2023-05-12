@@ -2,8 +2,10 @@ import { createSelector } from '@reduxjs/toolkit';
 import RootState from '../types/RootState';
 import VertexEntity from '../types/VertexEntity';
 
+export const selectWalls = (state: RootState) => state.walls;
+
 export const getSelectedWalls = createSelector(
-  (state: RootState) => state.walls,
+  selectWalls,
   (walls) =>
     Object.values(walls).filter(({ isSelected }) => isSelected),
 );
@@ -20,7 +22,7 @@ export const getUniqueVerticesFromSelectedWalls = createSelector(
 );
 
 export const getSplitTargetWall = createSelector(
-  (state: RootState) => state.walls,
+  selectWalls,
   (walls) => Object
     .values(walls)
     // .findLast(({ isSplitTarget }) => isSplitTarget),
@@ -28,7 +30,7 @@ export const getSplitTargetWall = createSelector(
 );
 
 export const getSplittingWalls = createSelector(
-  (state: RootState) => state.walls,
+  selectWalls,
   (walls) => Object
     .values(walls)
     .filter(({ isSplitting }) => isSplitting),

@@ -2,7 +2,7 @@ import { createSelector } from '@reduxjs/toolkit';
 import RootState from '../types/RootState';
 import WallEntity from '../types/WallEntity';
 import Point from '../../types/Point';
-import VertexEntity from '../types/VertexEntity'
+import VertexEntity from '../types/VertexEntity';
 
 type PointKey = `${number}__${number}`;
 const createPointKey = ({ x, y }: Point): PointKey => `${x}__${y}`;
