@@ -312,10 +312,11 @@ export class MouseSensor<T extends Element> {
       this.run('onKeyUp', event);
     };
 
+    // @ts-expect-error
     this._handlers.onClick = (event) => {
       this.reconciliate(event);
       this.run('onMouseClick', event);
-    }
+    };
   }
 }
 

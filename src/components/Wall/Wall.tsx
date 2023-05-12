@@ -8,7 +8,6 @@ type Props = {
   x2: number;
   y1: number;
   y2: number;
-  i: number;
   isSelected?: boolean;
   isDragging?: boolean;
   isSplitting?: boolean;
@@ -21,7 +20,6 @@ const Wall: FC<Props> = ({
   x2,
   y1,
   y2,
-  i,
   isSelected,
   isDragging,
   isSplitting,

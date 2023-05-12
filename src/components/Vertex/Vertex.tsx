@@ -6,10 +6,9 @@ type Props = {
   id: string;
   x: number;
   y: number;
-  index: number;
-  isSelected: boolean;
+  isSelected?: boolean;
   /** Takes priority over `isSelected` */
-  isDragging: boolean;
+  isDragging?: boolean;
   isPlacing?: boolean;
   isSplitting?: boolean;
 }
@@ -18,7 +17,6 @@ const Vertex: FC<Props> = ({
   id,
   x,
   y,
-  index,
   isSelected = false,
   isDragging = false,
   isPlacing = false,
