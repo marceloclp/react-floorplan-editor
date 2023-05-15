@@ -11,13 +11,11 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.0.17",
-    "@mathigon/euclid": "^1.1.10",
     "@reduxjs/toolkit": "^1.9.5",
     "geometric": "^2.5.2",
     "lodash.throttle": "^4.1.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-draggable": "^4.4.5",
     "react-redux": "^8.0.5"
   },
   "devDependencies": {

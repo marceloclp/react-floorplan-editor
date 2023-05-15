@@ -375,35 +375,27 @@ const useEditorState = (vs: MouseSensor<SVGGeometryElement>) => {
       }
     };
 
-    // const handleEntityDeleteStart = () => {
-    //   if (!isMode(EDITOR_MODES.NONE)) return;
+    const handleEntityDeleteStop = () => {
+      if (!isMode(EDITOR_MODES.ENTITY_DELETE)) return;
 
-    //   if (!isHoldingDeleteKey()) return;
+      if (isHoldingDeleteKey()) return;
 
-    //   return act(entityDeletionStart());
-    // };
+      vs.kb.flush(['KeyD']);
 
-    // const handleEntityDeleteStop = () => {
-    //   if (!isMode(EDITOR_MODES.ENTITY_DELETE)) return;
+      return act(entityDeletionStop());
+    };
 
-    //   if (isHoldingDeleteKey()) return;
+    const handleEntityDeleteClick = () => {
+      if (!isMode(EDITOR_MODES.ENTITY_DELETE)) return;
 
-    //   vs.kb.flush(['KeyD']);
+      if (!isHoldingDeleteKey()) return handleEntityDeleteStop();
 
-    //   return act(entityDeletionStop());
-    // };
-
-    // const handleEntityDeleteClick = () => {
-    //   if (!isMode(EDITOR_MODES.ENTITY_DELETE)) return;
-
-    //   if (!isHoldingDeleteKey()) return handleEntityDeleteStop();
-
-    //   const { g, gType, gId } = getGElement();
+      const { g, gType, gId } = getGElement();
       
-    //   if (!g || !gType || !['wall', 'vertex'].includes(gType)) return;
+      if (!g || !gType || !['wall', 'vertex'].includes(gType)) return;
 
-    //   return act(entityDeletionClick(gType, gId));
-    // };
+      return act(entityDeletionClick(gType, gId));
+    };
 
     return vs.on({
       onMouseDown: () => {
@@ -422,9 +414,9 @@ const useEditorState = (vs: MouseSensor<SVGGeometryElement>) => {
           if (isPlacingMode())
             if (vs.clickLeft)
               return handlePlaceClick();
-        // if (isMode(EDITOR_MODES.ENTITY_DELETE))
-        //     if (isHoldingDeleteKey())
-        //       return handleEntityDeleteClick();
+        if (isMode(EDITOR_MODES.ENTITY_DELETE))
+            if (isHoldingDeleteKey())
+              return handleEntityDeleteClick();
       },
       onMouseMove: () => {
         if (isHoldingPlaceKey())
@@ -467,6 +459,48 @@ const useEditorState = (vs: MouseSensor<SVGGeometryElement>) => {
       },
     });
   }, [act, vs, refs, isMode]);
+
+  useEffect(() => {
+    const isHoldingDeleteKey = () => vs.kb.isDown(['KeyD']);
+
+    const handleEntityDeleteStart = () => {
+      if (!isMode(EDITOR_MODES.NONE)) return;
+
+      if (!isHoldingDeleteKey()) return;
+
+      return act(entityDeletionStart());
+    };
+
+    const handleEntityDeleteStop = () => {
+      if (!isMode(EDITOR_MODES.ENTITY_DELETE)) return;
+
+      if (isHoldingDeleteKey()) return;
+
+      vs.kb.flush(['KeyD']);
+
+      return act(entityDeletionStop());
+    };
+
+    const onKeyDown = () => {
+      if (isMode(EDITOR_MODES.NONE))
+        if (isHoldingDeleteKey())
+          return handleEntityDeleteStart();
+    };
+
+    const onKeyUp = () => {
+      if (isMode(EDITOR_MODES.ENTITY_DELETE))
+        if (!isHoldingDeleteKey())
+          return handleEntityDeleteStop();
+    };
+
+    window.addEventListener('keyup', onKeyUp);
+    window.addEventListener('keydown', onKeyDown);
+
+    return () => {
+      window.removeEventListener('keyup', onKeyUp);
+      window.removeEventListener('keydown', onKeyDown);
+    };
+  }, [act, isMode, vs]);
 
   useTwoFingerSwipe(
     useCallback(({ deltaX, deltaY }) => {
