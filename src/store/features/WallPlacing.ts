@@ -1,5 +1,5 @@
 import { createAction } from '@reduxjs/toolkit';
-import { createFeature } from '../utils/toolkit';
+import { createFeature, snapshotable } from '../utils/toolkit';
 import { EDITOR_MODES } from '../constants';
 import Point from '../../types/Point';
 import { createVertex } from '../helpers/createVertex';
@@ -9,7 +9,6 @@ import { selectGetVerticesAtPoint, selectGetWallsAtVertex } from '../selectors/l
 import { createWall } from '../helpers/createWall';
 import { mergeWallsAtWall } from '../helpers/mergeWallsAtWall';
 import { updateWall } from '../helpers/updateWall';
-import { historyPushEntry } from '../helpers/historyPushEntry'
 
 /**
  * Wall placing/drawing mode always starts from vertex placing mode, that's why
@@ -22,7 +21,7 @@ export const wallPlaceUpdate =
   createAction('wall:place:update', (point: Point) => ({ payload: { point } }));
 
 export const wallPlaceClick =
-  createAction('wall:place:click');
+  createAction('wall:place:click', () => snapshotable());
 
 export const wallPlaceStop =
   createAction('wall:place:stop');
@@ -82,8 +81,6 @@ export default createFeature((builder) => {
 
       // Reset the placing wall id so it creates a new one on update:
       state.placingWallId = undefined;
-
-      historyPushEntry(state);
     })
     .addCase(wallPlaceStop, (state) => {
       if (state.mode !== EDITOR_MODES.PLACING_WALL) return;

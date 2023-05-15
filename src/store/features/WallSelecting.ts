@@ -1,10 +1,9 @@
 import { createAction } from '@reduxjs/toolkit';
-import { createFeature } from '../utils/toolkit';
+import { createFeature, snapshotable } from '../utils/toolkit';
 import { EDITOR_MODES } from '../constants';
 import { getSelectedWalls, getUniqueVerticesFromSelectedWalls } from '../selectors/walls';
 import { getVertexToWallLookup } from '../selectors/getVertexToWallLookup';
 import { deleteWall } from '../helpers/deleteWall';
-import { historyPushEntry } from '../helpers/historyPushEntry'
 
 /**
  * 
@@ -22,13 +21,13 @@ export const wallSelectSwitch =
  * 
  */  
 export const wallSelectMove =
-  createAction('wall:select:move', (dx: number, dy: number) => ({ payload: { dx, dy } }));
+  createAction('wall:select:move', (dx: number, dy: number) => snapshotable({ payload: { dx, dy } }));
 
 /**
  * 
  */  
 export const wallSelectDelete =
-  createAction('wall:select:delete');
+  createAction('wall:select:delete', () => snapshotable());
 
 /**
  * 
@@ -67,8 +66,6 @@ export default createFeature((builder) => {
         state.vertices[id].x += dx;
         state.vertices[id].y += dy;
       });
-
-      historyPushEntry(state);
     })
     .addCase(wallSelectDelete, (state) => {
       if (state.mode !== EDITOR_MODES.SELECTING_WALL) return;
@@ -81,8 +78,6 @@ export default createFeature((builder) => {
 
       // Exit wall selection mode as the selected wall has been deleted:
       state.mode = EDITOR_MODES.NONE;
-
-      historyPushEntry(state);
     })
     .addCase(wallSelectStop, (state) => {
       if (state.mode !== EDITOR_MODES.SELECTING_WALL) return;

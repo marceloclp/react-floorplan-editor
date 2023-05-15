@@ -1,12 +1,11 @@
 import { createAction } from '@reduxjs/toolkit';
-import { createFeature } from '../utils/toolkit';
+import { createFeature, snapshotable } from '../utils/toolkit';
 import { EDITOR_MODES } from '../constants';
 import Point from '../../types/Point';
 import { createVertex } from '../helpers/createVertex';
 import { updateVertex } from '../helpers/updateVertex';
 import { mergeVerticesAtVertex } from '../helpers/mergeVerticesAtVertex';
 import { selectGetVerticesAtPoint, selectGetWallsAtVertex } from '../selectors/lookups';
-import { historyPushEntry } from '../helpers/historyPushEntry'
 
 /**
  * 
@@ -25,7 +24,7 @@ export const vertexPlaceUpdate =
  * 2. Switches to wall placing mode.
  */
 export const vertexPlaceClick =
-  createAction('vertex:place:click');
+  createAction('vertex:place:click', () => snapshotable());
 
 /**
  * 
@@ -68,8 +67,6 @@ export default createFeature((builder) => {
 
       // Start wall placing mode:
       state.mode = EDITOR_MODES.PLACING_WALL;
-
-      historyPushEntry(state);
     })
     .addCase(vertexPlaceStop, (state, { type }) => {
       if (state.mode !== EDITOR_MODES.PLACING_VERTEX) return;

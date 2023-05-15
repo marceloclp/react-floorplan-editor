@@ -39,6 +39,9 @@ type RootState = {
   };
 
   history: {
+    history: HistoryEntry[],
+    currentIndex: number;
+
     undoStack: HistoryEntry[];
     redoStack: HistoryEntry[];
     maxSize: number;

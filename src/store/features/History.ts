@@ -1,6 +1,11 @@
-import { createAction } from '@reduxjs/toolkit';
+import { Draft, createAction, current } from '@reduxjs/toolkit';
 import { createFeature } from '../utils/toolkit';
-import { historyUndoEntry } from '../helpers/historyUndoEntry';
+import RootState from '../types/RootState';
+
+/**
+ * 
+ */
+export const historyPush = createAction('history:push');
 
 /**
  * 
@@ -18,27 +23,50 @@ export const historyUndoAll = createAction('history:undo_all');
 export const historyRedo = createAction('history:redo');
 
 export default createFeature((builder) => {
+  const restore = (state: Draft<RootState>) => {
+    const { history, currentIndex } = state.history;
+    const entry = history[currentIndex];
+  
+    state.walls = entry.walls;
+    state.vertices = entry.vertices;
+  };
+
   builder
-    .addCase(historyUndo, historyUndoEntry)
+    .addCase(historyPush, (state) => {
+      const snapshot = {
+        vertices: current(state.vertices),
+        walls: current(state.walls),
+      };
+      state.history.history.push(snapshot);
+      state.history.currentIndex++;
+    })
+    .addCase(historyUndo, (state) => {
+      // Can't undo if there are no entries to the left of the pointer:
+      if (state.history.currentIndex <= 0) return;
+
+      // Undo successful, move pointer to the left:
+      state.history.currentIndex -= 1;
+
+      restore(state);
+    })
     .addCase(historyUndoAll, (state) => {
-      while (state.history.undoStack.length > 1)
-        historyUndoEntry(state);
+      // Can't undo if there are no entries to the left of the pointer:
+      if (state.history.currentIndex <= 0) return;
+
+      // Undo all successful, move pointer back to the initial state:
+      state.history.currentIndex = 0;
+
+      restore(state);
     })
     .addCase(historyRedo, (state) => {
-      const { redoStack, undoStack, maxSize } = state.history;
+      const { history, currentIndex } = state.history;
 
-      // There is nothing to redo:
-      if (redoStack.length === 0) return;
+      // Can't redo if there are no entries to the right of the pointer:
+      if (currentIndex >= history.length - 1) return;
 
-      const discardedState = redoStack.pop()!;
+      // Redo successful, move pointer to the right:
+      state.history.currentIndex += 1;
 
-      undoStack.push(discardedState);
-      if (undoStack.length > maxSize)
-        undoStack.splice(1, 1);
-
-      const nextState = undoStack.at(-1)!;
-
-      state.vertices = nextState.vertices;
-      state.walls = nextState.walls;
+      restore(state);
     });
 });

@@ -21,6 +21,7 @@ import WallDragging from './features/WallDragging';
 
 // Shared entity manipulation features:
 import EntityDeletion from './features/EntityDeletion';
+import HistoryMiddleware from './middlewares/HistoryMiddleware'
 
 const initialState: RootState = {
   vertices: {
@@ -87,6 +88,8 @@ const initialState: RootState = {
     zoom: 1,
   },
   history: {
+    history: [],
+    currentIndex: -1,
     maxSize: 50,
     redoStack: [],
     undoStack: [],
@@ -107,6 +110,8 @@ const store = configureStore({
     WallDragging,
     EntityDeletion,
   ]),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(HistoryMiddleware)
 });
 
 export default store;

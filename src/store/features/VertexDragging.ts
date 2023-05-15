@@ -1,12 +1,11 @@
 import { createAction, nanoid } from '@reduxjs/toolkit';
-import { createFeature } from '../utils/toolkit';
+import { createFeature, snapshotable } from '../utils/toolkit';
 import { EDITOR_MODES } from '../constants';
 import Point from '../../types/Point';
 import { updateVertex } from '../helpers/updateVertex';
 import { mergeVerticesAtVertex } from '../helpers/mergeVerticesAtVertex';
 import { selectGetVerticesAtPoint, selectGetWallsAtVertex } from '../selectors/lookups';
 import { mergeWallsAtWall } from '../helpers/mergeWallsAtWall';
-import { historyPushEntry } from '../helpers/historyPushEntry';
 
 /** Initializes vertex drag mode. */
 export const vertexDragStart =
@@ -18,7 +17,7 @@ export const vertexDragUpdate =
 
 /** Places the dragged vertex and exits vertex drag mode. */
 export const vertexDragDrop =
-  createAction('vertex:drag:drop');
+  createAction('vertex:drag:drop', () => snapshotable());
 
 /** Exits vertex drag mode without placing the dragged vertex. */
 export const vertexDragCancel =
@@ -69,8 +68,6 @@ export default createFeature((builder) => {
 
       // Exit dragging mode:
       state.mode = EDITOR_MODES.NONE;
-
-      historyPushEntry(state);
     })
     .addCase(vertexDragCancel, (state) => {
       if (state.mode !== EDITOR_MODES.DRAGGING_VERTEX) return;

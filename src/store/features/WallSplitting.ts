@@ -1,5 +1,5 @@
 import { createAction } from '@reduxjs/toolkit';
-import { createFeature } from '../utils/toolkit';
+import { createFeature, snapshotable } from '../utils/toolkit';
 import { EDITOR_MODES } from '../constants';
 import Point from '../../types/Point';
 import { createWall } from '../helpers/createWall';
@@ -10,7 +10,6 @@ import { getSplitTargetWall, getSplittingWalls } from '../selectors/walls';
 import { selectGetVerticesAtPoint, selectGetWallsAtVertex } from '../selectors/lookups';
 import { mergeVerticesAtVertex } from '../helpers/mergeVerticesAtVertex';
 import { mergeWallsAtWall } from '../helpers/mergeWallsAtWall';
-import { historyPushEntry } from '../helpers/historyPushEntry';
 
 /**
  * Wall splitting branches off from vertex placing mode when the user hovers
@@ -35,7 +34,7 @@ export const wallSplitUpdateOnGrid =
  * 
  */
 export const wallSplitClick =
-  createAction('wall:split:click');
+  createAction('wall:split:click', () => snapshotable());
 
 /**
  * 
@@ -128,8 +127,6 @@ export default createFeature((builder) => {
 
       // Start wall placing mode:
       state.mode = EDITOR_MODES.PLACING_WALL;
-
-      historyPushEntry(state);
     })
     .addCase(wallSplitStop, (state) => {
       if (state.mode !== EDITOR_MODES.SPLITTING_WALL) return;

@@ -1,9 +1,8 @@
 import { createAction } from '@reduxjs/toolkit';
-import { createFeature } from '../utils/toolkit';
+import { createFeature, snapshotable } from '../utils/toolkit';
 import { EDITOR_MODES } from '../constants';
 import { getSelectedVertices } from '../selectors/vertices';
 import { deleteVertex } from '../helpers/deleteVertex';
-import { historyPushEntry } from '../helpers/historyPushEntry';
 
 /**
  * 
@@ -21,13 +20,13 @@ export const vertexSelectSwitch =
  * 
  */
 export const vertexSelectMove =
-  createAction('vertex:select:move', (dx: number, dy: number) => ({ payload: { dx, dy } }));
+  createAction('vertex:select:move', (dx: number, dy: number) => snapshotable({ payload: { dx, dy } }));
 
 /**
  * 
  */
 export const vertexSelectDelete =
-  createAction('vertex:select:delete');
+  createAction('vertex:select:delete', () => snapshotable());
 
 /**
  * 
@@ -64,8 +63,6 @@ export default createFeature((builder) => {
         vertex.x += dx;
         vertex.y += dy;
       });
-
-      historyPushEntry(state);
     })
     .addCase(vertexSelectDelete, (state) => {
       if (state.mode !== EDITOR_MODES.SELECTING_VERTEX) return;
@@ -77,8 +74,6 @@ export default createFeature((builder) => {
       
       // Exit vertex selection mode as the vertex no longer exists:
       state.mode = EDITOR_MODES.NONE;
-
-      historyPushEntry(state);
     })
     .addCase(vertexSelectStop, (state) => {
       if (state.mode !== EDITOR_MODES.SELECTING_VERTEX) return;

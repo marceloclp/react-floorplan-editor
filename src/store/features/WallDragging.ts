@@ -1,13 +1,12 @@
 import { createAction } from '@reduxjs/toolkit';
-import { createFeature } from '../utils/toolkit';
+import { createFeature, snapshotable } from '../utils/toolkit';
 import { EDITOR_MODES } from '../constants';
 import Point from '../../types/Point';
 import { updateVertex } from '../helpers/updateVertex';
 import { updateWall } from '../helpers/updateWall';
-import { selectGetVerticesAtPoint, selectGetWallsAtVertex } from '../selectors/lookups'
-import { mergeVerticesAtVertex } from '../helpers/mergeVerticesAtVertex'
-import { mergeWallsAtWall } from '../helpers/mergeWallsAtWall'
-import { historyPushEntry } from '../helpers/historyPushEntry'
+import { selectGetVerticesAtPoint, selectGetWallsAtVertex } from '../selectors/lookups';
+import { mergeVerticesAtVertex } from '../helpers/mergeVerticesAtVertex';
+import { mergeWallsAtWall } from '../helpers/mergeWallsAtWall';
 
 /**
  * 
@@ -22,7 +21,7 @@ export const wallDragUpdate = createAction('wall:drag:update', (by: Point) => ({
 /**
  * 
  */
-export const wallDragDrop = createAction('wall:drag:drop');
+export const wallDragDrop = createAction('wall:drag:drop', () => snapshotable());
 
 export default createFeature((builder) => {
   let pointA: Point = { x: 0, y: 0 };
@@ -82,7 +81,5 @@ export default createFeature((builder) => {
 
       // Exit wall dragging mode:
       state.mode = EDITOR_MODES.NONE;
-
-      historyPushEntry(state);
     });
 });
