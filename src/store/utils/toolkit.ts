@@ -34,5 +34,5 @@ type UntypedAction<P = void, M = never, E = never> =
 export function snapshotable(): UntypedAction<void, { snapshotable: true }>;
 export function snapshotable<P = void, M = never, E = never>(action: UntypedAction<P, M, E>): UntypedAction<P, M & { snapshotable: true }, E>;
 export function snapshotable<P = void, M = never, E = never>(action?: UntypedAction<P, M, E>): UntypedAction<P, M & { snapshotable: true }, E> {
-  return { ...action, meta: { ...action?.meta, snapshotable: true } } as any;
+  return { ...action, meta: { ...(action as any)?.meta, snapshotable: true } } as any;
 }

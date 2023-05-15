@@ -1,5 +1,5 @@
-import { FC } from "react"
-import cx from "../../utils/cx"
+import { FC } from 'react';
+import cx from '../../utils/cx';
 
 type Props = {
   className?: string;

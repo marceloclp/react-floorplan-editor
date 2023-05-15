@@ -1,10 +1,10 @@
 import { createAction } from '@reduxjs/toolkit';
-import { createFeature, snapshotable } from '../utils/toolkit';
+import { EditorEntityType } from '../../components/Editor/useEditorState';
 import { EDITOR_MODES } from '../constants';
 import { deleteVertex } from '../helpers/deleteVertex';
-import { EditorEntityType } from '../../components/Editor/useEditorState';
 import { deleteWall } from '../helpers/deleteWall';
 import { selectGetWallsAtVertex } from '../selectors/lookups';
+import { createFeature, snapshotable } from '../utils/toolkit';
 
 /**
  * The entity deletion mode starts when the user presses the assigned delete key.

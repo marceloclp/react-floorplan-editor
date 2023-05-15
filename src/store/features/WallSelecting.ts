@@ -1,9 +1,9 @@
 import { createAction } from '@reduxjs/toolkit';
-import { createFeature, snapshotable } from '../utils/toolkit';
 import { EDITOR_MODES } from '../constants';
-import { getSelectedWalls, getUniqueVerticesFromSelectedWalls } from '../selectors/walls';
-import { getVertexToWallLookup } from '../selectors/getVertexToWallLookup';
 import { deleteWall } from '../helpers/deleteWall';
+import { getVertexToWallLookup } from '../selectors/getVertexToWallLookup';
+import { getSelectedWalls, getUniqueVerticesFromSelectedWalls } from '../selectors/walls';
+import { createFeature, snapshotable } from '../utils/toolkit';
 
 /**
  * 

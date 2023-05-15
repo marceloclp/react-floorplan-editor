@@ -1,5 +1,5 @@
-import Point from "../types/Point"
-import snapToGrid from "./snapToGrid"
+import snapToGrid from './snapToGrid';
+import Point from '../types/Point';
 
 export default function placeVerticesAtCenter(vertices: Point[], gridX = 1, gridY = 1) {
   const arrX = vertices.map(({ x }) => x);

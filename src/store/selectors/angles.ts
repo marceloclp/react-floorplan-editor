@@ -1,9 +1,9 @@
 import { createSelector } from '@reduxjs/toolkit';
-import RootState from '../types/RootState';
+import { lineAngle } from 'geometric';
 import { selectGetWallsAtVertex } from './lookups';
 import Point from '../../types/Point';
+import RootState from '../types/RootState';
 import WallEntity from '../types/WallEntity';
-import { lineAngle } from 'geometric';
 
 type Angle = { x0: number; x1: number; x2: number; y0: number; y1: number; y2: number };
 

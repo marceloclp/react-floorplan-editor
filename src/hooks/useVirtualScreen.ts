@@ -1,6 +1,6 @@
-import { KeyboardEventHandler, MouseEvent, MouseEventHandler, useRef } from "react"
-import Point from "../types/Point"
-import createDOMPoint from "../utils/createDOMPoint"
+import { KeyboardEventHandler, MouseEvent, MouseEventHandler, useRef } from 'react';
+import Point from '../types/Point';
+import createDOMPoint from '../utils/createDOMPoint';
 
 export type SnapAxis = undefined | 'x' | 'y';
 
@@ -159,7 +159,7 @@ export class MouseSensor<T extends Element> {
     return {
       x: this.snapToGridX(point.x),
       y: this.snapToGridY(point.y),
-    }
+    };
   }
 
   closest<T extends Element>(selector: string): T | null {

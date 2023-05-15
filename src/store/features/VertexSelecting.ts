@@ -1,8 +1,8 @@
 import { createAction } from '@reduxjs/toolkit';
-import { createFeature, snapshotable } from '../utils/toolkit';
 import { EDITOR_MODES } from '../constants';
-import { getSelectedVertices } from '../selectors/vertices';
 import { deleteVertex } from '../helpers/deleteVertex';
+import { getSelectedVertices } from '../selectors/vertices';
+import { createFeature, snapshotable } from '../utils/toolkit';
 
 /**
  * 

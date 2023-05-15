@@ -1,6 +1,6 @@
-import { FC, SVGProps } from "react"
-import cx from "../../utils/cx"
-import transform from "../../utils/transform"
+import { FC, SVGProps } from 'react';
+import cx from '../../utils/cx';
+import transform from '../../utils/transform';
 
 type Props = {
   id: string;
@@ -84,7 +84,7 @@ const Wall: FC<Props> = ({
         alignmentBaseline="central"
         baselineShift={20}
       >
-        {`ㅤ`}{length.toFixed(1)}px{`ㅤ`}
+        {'ㅤ'}{length.toFixed(1)}px{'ㅤ'}
       </text>
       {/* <text transform={transform({ x: textX, y: textY })} className="font-extrabold pointer-events-none fill-red-500 text-xs select-none">{id}</text> */}
     </g>

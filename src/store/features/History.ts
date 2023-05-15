@@ -1,6 +1,6 @@
 import { Draft, createAction, current } from '@reduxjs/toolkit';
-import { createFeature } from '../utils/toolkit';
 import RootState from '../types/RootState';
+import { createFeature } from '../utils/toolkit';
 
 /**
  * 

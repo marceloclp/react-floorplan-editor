@@ -1,4 +1,4 @@
-import Point from "../types/Point"
+import Point from '../types/Point';
 
 export default function snapToGrid(point: Point, gridX: number, gridY: number): Point {
   const xDistFromGrid = point.x % gridX;

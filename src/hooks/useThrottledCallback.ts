@@ -1,4 +1,4 @@
-import { DependencyList, useCallback, useRef } from "react"
+import { DependencyList, useCallback, useRef } from 'react';
 
 const useThrottledCallback = <F extends (...args: any) => any>(cb: F, ms: number, deps: DependencyList = []) => {
   const refs = useRef({

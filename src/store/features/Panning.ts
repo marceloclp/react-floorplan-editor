@@ -1,6 +1,6 @@
 import { createAction } from '@reduxjs/toolkit';
-import { createFeature } from '../utils/toolkit';
 import { EDITOR_MODES } from '../constants';
+import { createFeature } from '../utils/toolkit';
 
 /**
  * 

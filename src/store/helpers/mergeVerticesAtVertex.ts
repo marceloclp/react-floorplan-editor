@@ -1,6 +1,6 @@
 import { Draft } from '@reduxjs/toolkit';
-import RootState from '../types/RootState';
 import Point from '../../types/Point';
+import RootState from '../types/RootState';
 import VertexEntity from '../types/VertexEntity';
 import WallEntity from '../types/WallEntity';
 

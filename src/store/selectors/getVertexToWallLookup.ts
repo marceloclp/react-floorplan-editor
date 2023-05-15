@@ -1,6 +1,6 @@
-import { createSelector } from "@reduxjs/toolkit"
-import RootState from "../types/RootState"
-import WallEntity from "../types/WallEntity"
+import { createSelector } from '@reduxjs/toolkit';
+import RootState from '../types/RootState';
+import WallEntity from '../types/WallEntity';
 
 export const getVertexToWallLookup = createSelector(
   (state: RootState) => state.walls,

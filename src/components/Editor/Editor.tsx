@@ -1,18 +1,18 @@
-import { FC, useId, useMemo } from "react"
-import cx from "../../utils/cx"
-import Vertex from "../Vertex/Vertex"
-import Grid from "../Grid/Grid"
-import Wall from "../Wall/Wall"
-import useVirtualScreen from "../../hooks/useVirtualScreen"
-import GridDefinition from "../Grid/GridDefinition"
-import useEditorState from "./useEditorState"
-import { useSelector } from "react-redux"
-import RootState from "../../store/types/RootState"
-import transform from "../../utils/transform"
-import ToolbarEditorMode from "../Toolbars/ToolbarEditorMode"
-import ToolbarHistory from "../Toolbars/ToolbarHistory"
-import Angle from "../Angle/Angle"
-import { selectAngles } from "../../store/selectors/angles"
+import { FC, useId } from 'react';
+import { useSelector } from 'react-redux';
+import useEditorState from './useEditorState';
+import useVirtualScreen from '../../hooks/useVirtualScreen';
+import { selectAngles } from '../../store/selectors/angles';
+import RootState from '../../store/types/RootState';
+import cx from '../../utils/cx';
+import transform from '../../utils/transform';
+import Angle from '../Angle/Angle';
+import Grid from '../Grid/Grid';
+import GridDefinition from '../Grid/GridDefinition';
+import ToolbarEditorMode from '../Toolbars/ToolbarEditorMode';
+import ToolbarHistory from '../Toolbars/ToolbarHistory';
+import Vertex from '../Vertex/Vertex'
+import Wall from '../Wall/Wall';
 
 const Editor: FC = () => {
   const gridId = useId();

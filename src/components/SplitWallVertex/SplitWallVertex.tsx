@@ -1,6 +1,6 @@
-import { FC } from "react"
-import transform from "../../utils/transform"
-import Angle from "../Angle/Angle"
+import { FC } from 'react';
+import transform from '../../utils/transform';
+import Angle from '../Angle/Angle';
 
 type Props = {
   x0: number;

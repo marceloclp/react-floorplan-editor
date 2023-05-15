@@ -1,51 +1,48 @@
-import { useDispatch } from "react-redux";
-import { useCallback, useEffect } from "react";
-import { MouseSensor } from "../../hooks/useVirtualScreen";
-import EditorMode from "../../store/types/EditorMode";
-import useRefState from "../../hooks/useRefState";
-import useEditorMode from "../../store/hooks/useEditorMode";
-import { EDITOR_MODES } from "../../store/constants";
-import { panStart, panStop, panUpdate } from "../../store/features/Panning";
+import { useCallback, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import useRefState from '../../hooks/useRefState';
+import useTwoFingerSwipe from '../../hooks/useTwoFingerSwipe';
+import { MouseSensor } from '../../hooks/useVirtualScreen';
+import { EDITOR_MODES } from '../../store/constants';
+import { entityDeletionClick, entityDeletionStart, entityDeletionStop } from '../../store/features/EntityDeletion';
+import { panStart, panStop, panUpdate } from '../../store/features/Panning';
+import {
+  vertexDragDrop,
+  vertexDragStart,
+  vertexDragUpdate,
+} from '../../store/features/VertexDragging';
+import { vertexPlaceStart , vertexPlaceUpdate , vertexPlaceClick , vertexPlaceStop } from '../../store/features/VertexPlacing';
 import {
   vertexSelectDelete,
   vertexSelectMove,
   vertexSelectStart,
   vertexSelectStop,
   vertexSelectSwitch,
-} from "../../store/features/VertexSelecting";
+} from '../../store/features/VertexSelecting';
+import { wallDragDrop, wallDragStart, wallDragUpdate } from '../../store/features/WallDragging';
+import {
+  wallPlaceClick,
+  wallPlaceStop,
+  wallPlaceUpdate,
+} from '../../store/features/WallPlacing';
 import {
   wallSelectDelete,
   wallSelectMove,
   wallSelectStart,
   wallSelectStop,
   wallSelectSwitch,
-} from "../../store/features/WallSelecting";
-import { vertexPlaceStart } from "../../store/features/VertexPlacing";
-import { vertexPlaceUpdate } from "../../store/features/VertexPlacing";
-import { vertexPlaceClick } from "../../store/features/VertexPlacing";
-import { vertexPlaceStop } from "../../store/features/VertexPlacing";
-import {
-  wallPlaceClick,
-  wallPlaceStop,
-  wallPlaceUpdate,
-} from "../../store/features/WallPlacing";
+} from '../../store/features/WallSelecting';
 import {
   wallSplitClick,
   wallSplitStart,
   wallSplitStop,
   wallSplitUpdateOnGrid,
   wallSplitUpdateOnWall,
-} from "../../store/features/WallSplitting";
-import {
-  vertexDragDrop,
-  vertexDragStart,
-  vertexDragUpdate,
-} from "../../store/features/VertexDragging";
-import { wallDragDrop, wallDragStart, wallDragUpdate } from "../../store/features/WallDragging"
-import useTwoFingerSwipe from "../../hooks/useTwoFingerSwipe"
-import { entityDeletionClick, entityDeletionStart, entityDeletionStop } from "../../store/features/EntityDeletion"
+} from '../../store/features/WallSplitting';
+import useEditorMode from '../../store/hooks/useEditorMode';
+import EditorMode from '../../store/types/EditorMode';
 
-export type EditorEntityType = "wall" | "vertex" | "grid";
+export type EditorEntityType = 'wall' | 'vertex' | 'grid';
 
 const useEditorState = (vs: MouseSensor<SVGGeometryElement>) => {
   const act = useDispatch();
@@ -56,7 +53,7 @@ const useEditorState = (vs: MouseSensor<SVGGeometryElement>) => {
 
   const isMode = useCallback((mode: EditorMode) => {
     return mode === refs.current.mode;
-  }, [refs])
+  }, [refs]);
 
   useEffect(() => {
     const isSelectionMode = () =>
@@ -70,15 +67,15 @@ const useEditorState = (vs: MouseSensor<SVGGeometryElement>) => {
       isMode(EDITOR_MODES.DRAGGING_VERTEX) ||
       isMode(EDITOR_MODES.DRAGGING_WALL);
 
-    const isHoldingPanKey = () => vs.kb.isDown(["Space"]);
+    const isHoldingPanKey = () => vs.kb.isDown(['Space']);
     const isHoldingDragKey = () => vs.keyMeta;
     const isHoldingPlaceKey = () => vs.keyAlt;
     const isHoldingDeleteKey = () => vs.kb.isDown(['KeyD']);
 
     const getGElement = () => {
-      const g = vs.closest("[data-entity-type]");
-      const gType = g?.getAttribute("data-entity-type") as EditorEntityType;
-      const gId = g?.getAttribute("data-entity-id")!;
+      const g = vs.closest('[data-entity-type]');
+      const gType = g?.getAttribute('data-entity-type') as EditorEntityType;
+      const gId = g?.getAttribute('data-entity-id')!;
       return { g, gType, gId };
     };
 
@@ -134,9 +131,9 @@ const useEditorState = (vs: MouseSensor<SVGGeometryElement>) => {
       if (!g) return;
 
       switch (gType) {
-        case "vertex":
+        case 'vertex':
           return act(vertexSelectStart(gId));
-        case "wall":
+        case 'wall':
           return act(wallSelectStart(gId));
       }
     };
@@ -161,7 +158,7 @@ const useEditorState = (vs: MouseSensor<SVGGeometryElement>) => {
       if (!g) return;
 
       switch (gType) {
-        case "grid":
+        case 'grid':
           // Stop selection if user presses outside a selectable element:
           switch (refs.current.mode) {
             case EDITOR_MODES.SELECTING_VERTEX:
@@ -170,9 +167,9 @@ const useEditorState = (vs: MouseSensor<SVGGeometryElement>) => {
               return act(wallSelectStop());
           }
           return;
-        case "vertex":
+        case 'vertex':
           return act(vertexSelectSwitch(gId));
-        case "wall":
+        case 'wall':
           return act(wallSelectSwitch(gId));
       }
     };
@@ -188,33 +185,33 @@ const useEditorState = (vs: MouseSensor<SVGGeometryElement>) => {
       switch (refs.current.mode) {
         case EDITOR_MODES.SELECTING_VERTEX:
           switch (keyCode) {
-            case "ArrowUp":
+            case 'ArrowUp':
               return act(vertexSelectMove(0, -20));
-            case "ArrowDown":
+            case 'ArrowDown':
               return act(vertexSelectMove(0, 20));
-            case "ArrowRight":
+            case 'ArrowRight':
               return act(vertexSelectMove(20, 0));
-            case "ArrowLeft":
+            case 'ArrowLeft':
               return act(vertexSelectMove(-20, 0));
-            case "Backspace":
+            case 'Backspace':
               return act(vertexSelectDelete());
-            case "Escape":
+            case 'Escape':
               return act(vertexSelectStop());
           }
           return;
         case EDITOR_MODES.SELECTING_WALL:
           switch (keyCode) {
-            case "ArrowUp":
+            case 'ArrowUp':
               return act(wallSelectMove(0, -20));
-            case "ArrowDown":
+            case 'ArrowDown':
               return act(wallSelectMove(0, 20));
-            case "ArrowRight":
+            case 'ArrowRight':
               return act(wallSelectMove(20, 0));
-            case "ArrowLeft":
+            case 'ArrowLeft':
               return act(wallSelectMove(-20, 0));
-            case "Backspace":
+            case 'Backspace':
               return act(wallSelectDelete());
-            case "Escape":
+            case 'Escape':
               return act(wallSelectStop());
           }
           return;
@@ -252,7 +249,7 @@ const useEditorState = (vs: MouseSensor<SVGGeometryElement>) => {
       if (!isPlacingMode()) return;
 
       const { g, gType, gId } = getGElement();
-      const isHoveringWall = !!g && gType === "wall";
+      const isHoveringWall = !!g && gType === 'wall';
       const point = vs.snapToGrid(vs.point);
 
       switch (refs.current.mode) {

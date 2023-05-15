@@ -1,7 +1,7 @@
-import { FC } from "react"
-import Point from "../../types/Point"
-import transform from "../../utils/transform"
-import { lineAngle, lineMidpoint, pointTranslate } from "geometric";
+import { lineAngle, lineMidpoint, pointTranslate } from 'geometric';
+import { FC } from 'react';
+import Point from '../../types/Point';
+import transform from '../../utils/transform';
 
 type Props = {
   x0: number;
@@ -73,6 +73,6 @@ const Angle: FC<Props> = ({ x0, y0, x1, y1, x2, y2, r = 20 }) => {
       </text>
     </g>
   );
-}
+};
 
 export default Angle;

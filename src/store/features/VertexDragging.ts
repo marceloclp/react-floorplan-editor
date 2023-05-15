@@ -1,11 +1,11 @@
 import { createAction, nanoid } from '@reduxjs/toolkit';
-import { createFeature, snapshotable } from '../utils/toolkit';
-import { EDITOR_MODES } from '../constants';
 import Point from '../../types/Point';
-import { updateVertex } from '../helpers/updateVertex';
+import { EDITOR_MODES } from '../constants';
 import { mergeVerticesAtVertex } from '../helpers/mergeVerticesAtVertex';
-import { selectGetVerticesAtPoint, selectGetWallsAtVertex } from '../selectors/lookups';
 import { mergeWallsAtWall } from '../helpers/mergeWallsAtWall';
+import { updateVertex } from '../helpers/updateVertex';
+import { selectGetVerticesAtPoint, selectGetWallsAtVertex } from '../selectors/lookups';
+import { createFeature, snapshotable } from '../utils/toolkit';
 
 /** Initializes vertex drag mode. */
 export const vertexDragStart =

@@ -1,10 +1,10 @@
-import { FC } from 'react';
-import Toolbar from './components/Toolbar';
-import Button from './components/Button';
 import { ArrowPathRoundedSquareIcon, HandRaisedIcon, LockClosedIcon, MinusCircleIcon, PlusCircleIcon, ViewfinderCircleIcon } from '@heroicons/react/24/outline';
-import { EDITOR_MODES } from '../../store/constants';
-import Divider from './components/Divider';
+import { FC } from 'react';
 import { useSelector } from 'react-redux';
+import Button from './components/Button';
+import Divider from './components/Divider';
+import Toolbar from './components/Toolbar';
+import { EDITOR_MODES } from '../../store/constants';
 import RootState from '../../store/types/RootState';
 
 const ToolbarEditorMode: FC = () => {

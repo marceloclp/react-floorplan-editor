@@ -1,9 +1,6 @@
-import { Middleware } from "@reduxjs/toolkit"
-import RootState from "../types/RootState"
-import { MiddlewareAPI } from "@reduxjs/toolkit"
-import { Dispatch } from "@reduxjs/toolkit"
-import { AnyAction } from "@reduxjs/toolkit"
-import { historyPush } from "../features/History"
+import { Middleware , MiddlewareAPI , Dispatch , AnyAction } from '@reduxjs/toolkit';
+import { historyPush } from '../features/History';
+import RootState from '../types/RootState';
 
 const HistoryMiddleware: Middleware =
   (store: MiddlewareAPI<Dispatch, RootState>) =>
@@ -13,7 +10,6 @@ const HistoryMiddleware: Middleware =
 
     if (action.meta?.snapshotable) {
       store.dispatch(historyPush());
-      console.log(store.getState());
     }
 
     return result;

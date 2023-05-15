@@ -1,4 +1,4 @@
-import Point from "../types/Point"
+import Point from '../types/Point';
 
 /**
  * Returns the drawing path for the internal angle of the triangle ABC at point B.
@@ -40,5 +40,5 @@ export default function createAnglePath(A: Point, B: Point, C: Point, r: number)
   // Draw the arc counter-clockwise when the angle is negative:
   const sweepFlag = angle > 0 ? 1 : 0;
 
-  return `M ${startX} ${startY} A ${r} ${r} 0 0 ${sweepFlag} ${endX} ${endY}`
+  return `M ${startX} ${startY} A ${r} ${r} 0 0 ${sweepFlag} ${endX} ${endY}`;
 }

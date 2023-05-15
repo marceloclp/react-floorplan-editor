@@ -1,5 +1,6 @@
-import { useEffect } from "react"
-import throttle from 'lodash.throttle'
+/* eslint-disable no-undef */
+import throttle from 'lodash.throttle';
+import { useEffect } from 'react';
 
 /**
  * Attaches an active wheel event listener to the document.

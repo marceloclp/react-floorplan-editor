@@ -1,15 +1,15 @@
 import { createAction } from '@reduxjs/toolkit';
-import { createFeature, snapshotable } from '../utils/toolkit';
-import { EDITOR_MODES } from '../constants';
 import Point from '../../types/Point';
-import { createWall } from '../helpers/createWall';
-import { updateVertex } from '../helpers/updateVertex';
-import { updateWall } from '../helpers/updateWall';
 import findColinearPoint from '../../utils/findColinearPoint';
-import { getSplitTargetWall, getSplittingWalls } from '../selectors/walls';
-import { selectGetVerticesAtPoint, selectGetWallsAtVertex } from '../selectors/lookups';
+import { EDITOR_MODES } from '../constants';
+import { createWall } from '../helpers/createWall';
 import { mergeVerticesAtVertex } from '../helpers/mergeVerticesAtVertex';
 import { mergeWallsAtWall } from '../helpers/mergeWallsAtWall';
+import { updateVertex } from '../helpers/updateVertex';
+import { updateWall } from '../helpers/updateWall';
+import { selectGetVerticesAtPoint, selectGetWallsAtVertex } from '../selectors/lookups';
+import { getSplitTargetWall, getSplittingWalls } from '../selectors/walls';
+import { createFeature, snapshotable } from '../utils/toolkit';
 
 /**
  * Wall splitting branches off from vertex placing mode when the user hovers

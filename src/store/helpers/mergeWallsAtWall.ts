@@ -1,7 +1,7 @@
 import { Draft } from '@reduxjs/toolkit';
+import { deleteWall } from './deleteWall';
 import RootState from '../types/RootState';
 import WallEntity from '../types/WallEntity';
-import { deleteWall } from './deleteWall';
 
 /**
  * Given a target wall:

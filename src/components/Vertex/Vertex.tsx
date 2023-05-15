@@ -1,6 +1,6 @@
 import { FC } from 'react';
-import transform from '../../utils/transform';
 import cx from '../../utils/cx';
+import transform from '../../utils/transform';
 
 type Props = {
   id: string;

@@ -1,11 +1,11 @@
 import { createAction } from '@reduxjs/toolkit';
-import { createFeature, snapshotable } from '../utils/toolkit';
-import { EDITOR_MODES } from '../constants';
 import Point from '../../types/Point';
+import { EDITOR_MODES } from '../constants';
 import { createVertex } from '../helpers/createVertex';
-import { updateVertex } from '../helpers/updateVertex';
 import { mergeVerticesAtVertex } from '../helpers/mergeVerticesAtVertex';
+import { updateVertex } from '../helpers/updateVertex';
 import { selectGetVerticesAtPoint, selectGetWallsAtVertex } from '../selectors/lookups';
+import { createFeature, snapshotable } from '../utils/toolkit';
 
 /**
  * 

@@ -1,13 +1,12 @@
+import { ArrowPathIcon, ArrowUturnLeftIcon, ArrowUturnRightIcon, MinusIcon, PlusIcon } from '@heroicons/react/24/outline';
 import { FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ArrowPathIcon, ArrowUturnLeftIcon, ArrowUturnRightIcon, MinusIcon, PlusIcon } from '@heroicons/react/24/outline';
-import { historyRedo, historyUndo, historyUndoAll } from '../../store/features/History';
-import { selectCanRedo, selectCanUndo } from '../../store/selectors/history';
-import Toolbar from './components/Toolbar';
 import Button from './components/Button';
 import Divider from './components/Divider';
-import { zoomChange } from '../../store/features/Zooming';
-import { zoomReset } from '../../store/features/Zooming';
+import Toolbar from './components/Toolbar';
+import { historyRedo, historyUndo, historyUndoAll } from '../../store/features/History';
+import { zoomChange , zoomReset } from '../../store/features/Zooming';
+import { selectCanRedo, selectCanUndo } from '../../store/selectors/history';
 import { selectZoomLevel } from '../../store/selectors/zooming';
 
 const ToolbarHistory: FC = () => {
